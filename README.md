@@ -4,18 +4,18 @@
 
 <div align="center">
 
-# 💀 center2055
+# center2055
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&pause=1000&color=27E627&center=true&vCenter=true&width=435&lines=Minecraft+Developer;System+Automation;Network+Security;Python+%26+Java+Enthusiast)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&pause=1000&color=27E627&center=true&vCenter=true&width=435&lines=Python+Developer;JavaScript+Developer;TypeScript+Developer;Rust+Developer;C+%26+C%2B%2B+Developer;C%23+Developer;Java+Developer;Minecraft+Server+Developer)](https://git.io/typing-svg)
 
 ---
 
 ### 🚀 About Me
 
-I build tools that break limits. Focused on Minecraft server infrastructure, client modifications, and automation scripts. 
+Python, JavaScript, TypeScript, Rust, C, C++, C# and Java Developer. Coding since 2021. Experienced Minecraft Server Developer.
 
-- 🔭 Working on **Advanced Minecraft Server Control & Security Tools**
-- 🌱 Learning **Network Penetration & Low-level System Access**
+- 🔭 Working on **Minecraft Server Development & Automation**
+- 🌱 Learning **Advanced System Programming & Low-level Development**
 - ⚡ **"If it can be automated, it will be."**
 
 ---
@@ -24,7 +24,7 @@ I build tools that break limits. Focused on Minecraft server infrastructure, cli
 
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=java,python,cs,ts,linux,docker,git,bash,vscode,discord&perline=10" />
+    <img src="https://skillicons.dev/icons?i=python,js,ts,rust,c,cpp,cs,java,docker,git,bash,vscode,discord&perline=12" />
   </a>
 </p>
 
@@ -54,7 +54,7 @@ I build tools that break limits. Focused on Minecraft server infrastructure, cli
 ### 🔗 Connectivity
 
 [<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />](https://github.com/center2055)
-[<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />](https://discord.com)
+[<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />](https://discord.com/users/centerxx)
 
 </div>
 
