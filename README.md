@@ -34,17 +34,12 @@ Python, JavaScript, TypeScript, Rust, C, C++, C# and Java Developer. Coding sinc
 
 <div align="center">
 
-<a href="https://github.com/anuraghazra/github-readme-stats">
-  <img height=160 src="https://github-readme-stats.vercel.app/api?username=center2055&show_icons=true&theme=react&hide_border=true&bg_color=0D1117" />
-</a>
-<a href="https://github.com/anuraghazra/github-readme-stats">
-  <img height=160 src="https://github-readme-stats.vercel.app/api/top-langs/?username=center2055&layout=compact&theme=react&hide_border=true&bg_color=0D1117" />
-</a>
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=center2055&show_icons=true&theme=react&hide_border=true&bg_color=0D1117&include_all_commits=true&count_private=true)
 
-</div>
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=center2055&layout=compact&theme=react&hide_border=true&bg_color=0D1117)
 
-<div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=center2055&theme=react&hide_border=true&background=0D1117" alt="GitHub Streak" />
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=center2055&theme=react&hide_border=true&background=0D1117)
+
 </div>
 
 ---
