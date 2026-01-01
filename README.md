@@ -20,7 +20,6 @@ Developer building Minecraft plugins (Bukkit/Spigot/Paper), client modifications
 
 <div align="center">
   <img height="180em" src="https://github-readme-stats.zcy.dev/api?username=center2055&show_icons=true&theme=dark" />
-  <img height="180em" src="https://github-readme-stats.zcy.dev/api/top-langs/?username=center2055&theme=dark" />
 </div>
 
 ---
