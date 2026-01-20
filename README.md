@@ -39,7 +39,7 @@ Developer building Minecraft plugins (Bukkit/Spigot/Paper), client modifications
 ### Connectivity
 
 [<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />](https://github.com/center2055)
-[<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />](https://discord.gg/D7PdXzPy2e)
+[<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />](https://discord.gg/y3MVspPzKQ)
 
 </div>
 
