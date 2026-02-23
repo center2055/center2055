@@ -40,6 +40,7 @@ Developer building Minecraft plugins (Bukkit/Spigot/Paper), client modifications
 
 [<img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />](https://github.com/center2055)
 [<img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" />](https://discord.gg/y3MVspPzKQ)
+[<img src="https://img.shields.io/badge/Ko--Fi-FF5E5B?style=for-the-badge&logo=kofi&logoColor=white" />](https://ko-fi.com/center2055)
 
 </div>
 
