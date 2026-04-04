@@ -1,6 +1,7 @@
 export type Accent = 'lime' | 'clay' | 'ice';
 export type Ownership = 'Built' | 'Contributed';
 export type CardLayout = 'wide' | 'tall' | 'standard';
+export type SocialPlatform = 'github' | 'discord' | 'kofi';
 
 export type ProjectProfile = {
   name: string;
@@ -108,6 +109,24 @@ export const processSteps = [
     index: '04',
     title: 'Ship with a workflow',
     body: 'Deployment, notifications, and public iteration are part of the build. The release path matters as much as the landing page.',
+  },
+];
+
+export const closingHighlights = [
+  {
+    title: 'UI that feels authored',
+    body: 'Typography, spacing, motion, and hierarchy are treated like product decisions, not post-processing.',
+    accent: 'lime' as const,
+  },
+  {
+    title: 'Desktop tools with product discipline',
+    body: 'Utilities, privacy apps, and Windows-focused software that feel deliberate instead of merely functional.',
+    accent: 'clay' as const,
+  },
+  {
+    title: 'Contribution-ready engineering',
+    body: 'I can ship original tools and also improve an existing codebase without flattening its identity.',
+    accent: 'ice' as const,
   },
 ];
 
@@ -290,7 +309,7 @@ export const fallbackRepos: RepoSnapshot[] = [
 ];
 
 export const footerLinks = [
-  { label: 'GitHub', href: 'https://github.com/center2055' },
-  { label: 'Discord', href: 'https://discord.gg/y3MVspPzKQ' },
-  { label: 'Ko-fi', href: 'https://ko-fi.com/center2055' },
+  { label: 'GitHub', href: 'https://github.com/center2055', icon: 'github' as const },
+  { label: 'Discord', href: 'https://discord.gg/y3MVspPzKQ', icon: 'discord' as const },
+  { label: 'Ko-fi', href: 'https://ko-fi.com/center2055', icon: 'kofi' as const },
 ];

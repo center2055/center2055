@@ -2,6 +2,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import type { MouseEvent } from 'react';
 import {
   capabilityCards,
+  closingHighlights,
   fallbackRepos,
   featuredOrder,
   footerLinks,
@@ -14,6 +15,7 @@ import {
   type CardLayout,
   type Ownership,
   type RepoSnapshot,
+  type SocialPlatform,
 } from './data/portfolio';
 import { useGithubRepos } from './hooks/useGithubRepos';
 
@@ -49,6 +51,39 @@ function updateSpotlight(event: MouseEvent<HTMLElement>) {
 function resetSpotlight(event: MouseEvent<HTMLElement>) {
   event.currentTarget.style.setProperty('--spot-x', '50%');
   event.currentTarget.style.setProperty('--spot-y', '50%');
+}
+
+function SocialIcon({ platform }: { platform: SocialPlatform }) {
+  if (platform === 'github') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.33-1.75-1.33-1.75-1.09-.73.08-.72.08-.72 1.2.09 1.83 1.22 1.83 1.22 1.08 1.82 2.82 1.3 3.5.99.11-.76.42-1.3.76-1.6-2.66-.3-5.47-1.31-5.47-5.86 0-1.3.47-2.36 1.24-3.2-.13-.3-.54-1.5.12-3.13 0 0 1.01-.32 3.3 1.22a11.67 11.67 0 0 1 6 0c2.28-1.54 3.29-1.22 3.29-1.22.67 1.63.25 2.83.13 3.13.77.84 1.24 1.9 1.24 3.2 0 4.56-2.81 5.55-5.49 5.85.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58A12 12 0 0 0 12 .5Z"
+        />
+      </svg>
+    );
+  }
+
+  if (platform === 'discord') {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path
+          fill="currentColor"
+          d="M20.32 4.37A17.34 17.34 0 0 0 16.1 3a12.2 12.2 0 0 0-.54 1.1 16.12 16.12 0 0 0-4.88 0c-.17-.38-.35-.75-.55-1.1a17.2 17.2 0 0 0-4.23 1.38C3.23 8.27 2.5 12.05 2.86 15.77a17.57 17.57 0 0 0 5.19 2.63c.42-.57.8-1.18 1.12-1.82-.62-.24-1.21-.54-1.77-.89.15-.11.29-.23.43-.35 3.4 1.56 7.09 1.56 10.45 0 .14.12.28.24.43.35-.56.35-1.15.65-1.78.89.33.64.7 1.25 1.13 1.82a17.48 17.48 0 0 0 5.2-2.63c.43-4.31-.74-8.06-3.74-11.4ZM9.68 13.5c-1.02 0-1.86-.93-1.86-2.07 0-1.15.82-2.08 1.86-2.08 1.05 0 1.88.94 1.86 2.08 0 1.14-.82 2.07-1.86 2.07Zm4.64 0c-1.03 0-1.86-.93-1.86-2.07 0-1.15.82-2.08 1.86-2.08 1.04 0 1.87.94 1.86 2.08 0 1.14-.82 2.07-1.86 2.07Z"
+        />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M3.5 5.5c0-1.1.9-2 2-2h11.76c1.1 0 2 .9 2 2V14a2 2 0 0 1-2 2H11.7l-3.56 3.2a1 1 0 0 1-1.67-.74V16H5.5a2 2 0 0 1-2-2V5.5Zm12.89 1.73c-.5-.34-1.14-.5-1.93-.5-.92 0-1.77.32-2.56.94l-.4.33-.4-.33a4.04 4.04 0 0 0-2.56-.94c-.79 0-1.43.16-1.93.5-.76.51-1.14 1.3-1.14 2.35 0 .92.33 1.8 1 2.64.58.72 1.3 1.38 2.15 1.98.86.61 1.72 1.12 2.56 1.53.84-.41 1.7-.92 2.56-1.53.86-.6 1.58-1.26 2.15-1.98.67-.84 1-1.72 1-2.64 0-1.05-.38-1.84-1.14-2.35Z"
+      />
+    </svg>
+  );
 }
 
 function ProjectPanel({
@@ -154,10 +189,6 @@ function App() {
     .filter((project): project is ProjectCard => project !== null);
   const builtProjects = projects.filter((project) => project.ownership === 'Built');
   const contributedProjects = projects.filter((project) => project.ownership === 'Contributed');
-
-  const recentRepos = sourceRepos
-    .filter((repo) => !featuredOrder.includes(repo.name))
-    .slice(0, 4);
 
   const totalStars = sourceRepos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
   const activeLanguages = new Set(
@@ -425,26 +456,21 @@ function App() {
         <section className="section-block closing-grid">
           <article className="activity-panel">
             <div className="section-heading narrow">
-              <span className="eyebrow">Live feed</span>
-              <h2>More projects in motion.</h2>
+              <span className="eyebrow">What this shows</span>
+              <h2>Why these projects matter.</h2>
               <p>
-                The portfolio spotlights the sharpest cases, but the broader repo activity shows
-                how often new tools and experiments are shipping.
+                The point is not volume. The point is that the work shows frontend taste,
+                product thinking, and the ability to ship or contribute where the interface
+                actually matters.
               </p>
             </div>
 
-            <div className="activity-list">
-              {recentRepos.map((repo) => (
-                <a key={repo.name} href={repo.html_url} target="_blank" rel="noreferrer" className="activity-item">
-                  <div>
-                    <strong>{repo.name}</strong>
-                    <p>{repo.description}</p>
-                  </div>
-                  <div className="activity-meta">
-                    <span>{repo.language ?? 'mixed'}</span>
-                    <span>{formatDate(repo.updated_at)}</span>
-                  </div>
-                </a>
+            <div className="highlight-list">
+              {closingHighlights.map((item) => (
+                <article key={item.title} className={`highlight-card accent-${item.accent}`}>
+                  <strong>{item.title}</strong>
+                  <p>{item.body}</p>
+                </article>
               ))}
             </div>
           </article>
@@ -459,8 +485,11 @@ function App() {
 
             <div className="contact-links">
               {footerLinks.map((link) => (
-                <a key={link.label} href={link.href} target="_blank" rel="noreferrer">
-                  {link.label}
+                <a key={link.label} href={link.href} target="_blank" rel="noreferrer" className="social-button">
+                  <span className="social-icon">
+                    <SocialIcon platform={link.icon} />
+                  </span>
+                  <span>{link.label}</span>
                 </a>
               ))}
             </div>

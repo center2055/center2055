@@ -113,9 +113,7 @@ button {
 .project-links a:hover,
 .project-links a:focus-visible,
 .contact-links a:hover,
-.contact-links a:focus-visible,
-.activity-item:hover strong,
-.activity-item:focus-visible strong {
+.contact-links a:focus-visible {
   color: var(--text);
 }
 
@@ -718,38 +716,28 @@ button {
   padding: 30px;
 }
 
-.activity-list {
+.highlight-list {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   margin-top: 24px;
 }
 
-.activity-item {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 18px 0;
+.highlight-card {
+  padding: 20px 0 0;
   border-top: 1px solid var(--line);
 }
 
-.activity-item strong {
+.highlight-card strong {
   display: block;
-  margin-bottom: 6px;
-  font-size: 1.05rem;
-  transition: color 180ms ease;
+  margin-bottom: 8px;
+  font-size: 1.06rem;
 }
 
-.activity-item p {
+.highlight-card p {
   margin: 0;
-  max-width: 40ch;
-}
-
-.activity-meta {
-  min-width: 120px;
-  display: grid;
-  gap: 6px;
-  text-align: right;
+  max-width: 48ch;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 .contact-panel {
@@ -763,6 +751,45 @@ button {
   flex-wrap: wrap;
   gap: 18px;
   margin-top: 28px;
+}
+
+.social-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 50px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease;
+}
+
+.social-button:hover,
+.social-button:focus-visible {
+  transform: translateY(-1px);
+  border-color: var(--line-strong);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.social-icon svg {
+  width: 16px;
+  height: 16px;
 }
 
 .accent-lime {
@@ -855,13 +882,11 @@ button {
 
   .project-head,
   .project-footer,
-  .activity-item,
   .project-section-head {
     flex-direction: column;
   }
 
-  .project-stats,
-  .activity-meta {
+  .project-stats {
     min-width: 0;
     text-align: left;
   }
