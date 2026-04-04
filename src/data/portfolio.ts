@@ -237,7 +237,7 @@ export const fallbackRepos: RepoSnapshot[] = [
     name: 'DNS-Hop',
     description: 'Fast Windows DNS benchmarking, diagnostics, and one-click switching without the paywall.',
     html_url: 'https://github.com/center2055/DNS-Hop',
-    homepage: 'https://github.com/center2055/DNS-Hop/releases/latest',
+    homepage: 'https://center2055.github.io/DNS-Hop/',
     stargazers_count: 33,
     forks_count: 5,
     language: 'C#',
