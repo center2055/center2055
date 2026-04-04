@@ -213,9 +213,6 @@ function App() {
   const builtProjects = projects.filter((project) => project.ownership === 'Built');
   const contributedProjects = projects.filter((project) => project.ownership === 'Contributed');
   const builtProjectsTotal = builtProjectCatalog.length;
-  const additionalBuiltProjects = builtProjectCatalog.filter(
-    (repoName) => !builtProjects.some((project) => project.name === repoName),
-  );
 
   const totalStars = sourceRepos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
   const activeLanguages = new Set(
@@ -385,12 +382,6 @@ function App() {
                 </div>
                 <p>Products where the direction, interaction model, and implementation are mine.</p>
               </div>
-
-              <p className="project-section-note">
-                More built repos in the catalog:
-                {' '}
-                {additionalBuiltProjects.join(', ')}.
-              </p>
 
               <div className="project-grid">
                 {builtProjects.map((project, index) => (

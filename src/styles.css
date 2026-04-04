@@ -559,12 +559,6 @@ button {
   line-height: 1.7;
 }
 
-.project-section-note {
-  margin: -8px 0 0;
-  color: var(--muted);
-  line-height: 1.7;
-}
-
 .project-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
