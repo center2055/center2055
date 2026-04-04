@@ -161,7 +161,14 @@ function App() {
   const reducedMotion = useReducedMotion();
 
   const sourceRepos = repos.length > 0 ? repos : fallbackRepos;
-  const repoMap = new Map(sourceRepos.map((repo) => [repo.name, repo]));
+  const repoMap = new Map(fallbackRepos.map((repo) => [repo.name, repo]));
+  sourceRepos.forEach((repo) => {
+    repoMap.set(repo.name, {
+      ...repo,
+      description: repo.description ?? '',
+      homepage: repo.homepage ?? '',
+    });
+  });
 
   const projects = featuredOrder
     .map((name) => {

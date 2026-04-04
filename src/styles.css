@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=Syne:wght@500;700;800&display=swap');
 
 :root {
   color-scheme: dark;
@@ -90,10 +90,18 @@ button {
 }
 
 .brand {
-  font-family: 'Syne', sans-serif;
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.hero-metrics strong,
+.ownership-summary strong,
+.project-stats strong {
+  font-variant-numeric: lining-nums tabular-nums;
 }
 
 .site-header nav {
