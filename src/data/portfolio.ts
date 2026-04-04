@@ -151,7 +151,7 @@ export const featuredOrder = [
   'OnionHop',
   'DNS-Hop',
   'vp26',
-  'CoinflipXD',
+  'AdvancedDiscordMCP',
   'NetSpeedTray',
 ];
 
@@ -189,13 +189,13 @@ export const projectProfiles: Record<string, ProjectProfile> = {
     ownership: 'Built',
     layout: 'standard',
   },
-  CoinflipXD: {
-    name: 'CoinflipXD',
-    label: 'Gameplay utility',
-    domain: 'Minecraft plugin',
-    summary: 'A modern coinflip plugin built for current Minecraft versions without the usual mess of legacy plugin UX.',
-    impact: 'Shows product cleanup, game-server tooling, and shipping something opinionated for a specific user base.',
-    stack: ['Java', 'Minecraft', 'plugin UX', 'server tooling'],
+  AdvancedDiscordMCP: {
+    name: 'AdvancedDiscordMCP',
+    label: 'Automation tooling',
+    domain: 'Discord MCP server',
+    summary: 'Builds a deeper Discord control surface with moderation, scheduling, analytics, and automation instead of stopping at basic bot commands.',
+    impact: 'Shows protocol design, admin-facing product thinking, and keeping a feature-heavy tool usable once the scope gets real.',
+    stack: ['Python', 'Discord', 'MCP', 'automation'],
     accent: 'lime',
     ownership: 'Built',
     layout: 'standard',
