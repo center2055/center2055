@@ -1,0 +1,40 @@
+{
+  "name": "center2055-portfolio",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Interactive portfolio site for center2055",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/center2055/center2055.git"
+  },
+  "keywords": [
+    "portfolio",
+    "vite",
+    "react",
+    "typescript"
+  ],
+  "author": "center2055",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/center2055/center2055/issues"
+  },
+  "homepage": "https://center2055.github.io/center2055/",
+  "dependencies": {
+    "framer-motion": "^12.38.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3"
+  }
+}
