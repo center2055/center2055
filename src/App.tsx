@@ -346,11 +346,11 @@ function App() {
 
           <div className="ownership-summary">
             <div>
-              <span>Built tools</span>
+              <span>Built projects</span>
               <strong>{builtProjects.length.toString().padStart(2, '0')}</strong>
             </div>
             <div>
-              <span>Contributions</span>
+              <span>Merged contributions</span>
               <strong>{contributedProjects.length.toString().padStart(2, '0')}</strong>
             </div>
           </div>
@@ -360,7 +360,7 @@ function App() {
               <div className="project-section-head">
                 <div>
                   <span className="eyebrow">Built</span>
-                  <h3>Original tools</h3>
+                  <h3>Projects I built</h3>
                 </div>
                 <p>Products where the direction, interaction model, and implementation are mine.</p>
               </div>
@@ -381,9 +381,9 @@ function App() {
               <div className="project-section-head">
                 <div>
                   <span className="eyebrow">Contributed</span>
-                  <h3>Existing products I improved</h3>
+                  <h3>Merged contribution</h3>
                 </div>
-                <p>Projects where I stepped into an existing codebase and improved the product without forcing a rewrite.</p>
+                <p>A real contribution that landed in an existing codebase, not just a fork or an unmerged proposal.</p>
               </div>
 
               <div className="project-grid">
