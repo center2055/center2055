@@ -46,11 +46,11 @@ function updateSpotlight(event: MouseEvent<HTMLElement>) {
   const rect = event.currentTarget.getBoundingClientRect();
   event.currentTarget.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
   event.currentTarget.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
+  event.currentTarget.style.setProperty('--spot-opacity', '1');
 }
 
 function resetSpotlight(event: MouseEvent<HTMLElement>) {
-  event.currentTarget.style.setProperty('--spot-x', '50%');
-  event.currentTarget.style.setProperty('--spot-y', '50%');
+  event.currentTarget.style.setProperty('--spot-opacity', '0');
 }
 
 function SocialIcon({ platform }: { platform: SocialPlatform }) {
@@ -108,6 +108,7 @@ function ProjectPanel({
       onMouseMove={updateSpotlight}
       onMouseLeave={resetSpotlight}
     >
+      <div className="spotlight-layer" aria-hidden="true" />
       <div className="project-topline">
         <span>{project.ownership === 'Built' ? 'Built by me' : 'Contribution'}</span>
         <span>{project.label}</span>
@@ -286,6 +287,7 @@ function App() {
             onMouseMove={updateSpotlight}
             onMouseLeave={resetSpotlight}
           >
+            <div className="spotlight-layer" aria-hidden="true" />
             <div className="signal-grid">
               {heroSignals.map((signal, index) => (
                 <motion.article

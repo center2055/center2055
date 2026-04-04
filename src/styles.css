@@ -150,6 +150,9 @@ button {
   border: 1px solid var(--line);
   background: var(--panel);
   box-shadow: var(--shadow);
+  --spot-x: 50%;
+  --spot-y: 50%;
+  --spot-opacity: 0;
 }
 
 .hero-copy,
@@ -319,9 +322,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 18px;
-  background:
-    radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(197, 255, 107, 0.12), transparent 30%),
-    linear-gradient(180deg, rgba(24, 28, 25, 0.95), rgba(13, 15, 14, 0.95));
+  background: linear-gradient(180deg, rgba(24, 28, 25, 0.95), rgba(13, 15, 14, 0.95));
 }
 
 .hero-stage::before,
@@ -331,6 +332,11 @@ button {
   position: absolute;
   inset: 0;
   pointer-events: none;
+}
+
+.hero-stage::before,
+.hero-stage::after {
+  z-index: 1;
 }
 
 .hero-stage::before {
@@ -345,6 +351,31 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.08);
   inset: 14px;
   border-radius: 24px;
+}
+
+.spotlight-layer {
+  position: absolute;
+  inset: -10%;
+  pointer-events: none;
+  opacity: var(--spot-opacity);
+  transition: opacity 240ms ease;
+  z-index: 0;
+}
+
+.project-panel > :not(.spotlight-layer),
+.hero-stage > :not(.spotlight-layer) {
+  position: relative;
+  z-index: 2;
+}
+
+.project-panel .spotlight-layer {
+  background:
+    radial-gradient(circle 260px at var(--spot-x) var(--spot-y), rgba(255, 255, 255, 0.12), transparent 64%);
+}
+
+.hero-stage .spotlight-layer {
+  background:
+    radial-gradient(circle 320px at var(--spot-x) var(--spot-y), rgba(197, 255, 107, 0.16), transparent 64%);
 }
 
 .stage-core {
@@ -542,15 +573,14 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background:
-    radial-gradient(circle at var(--spot-x, 50%) var(--spot-y, 50%), rgba(255, 255, 255, 0.1), transparent 26%),
-    linear-gradient(180deg, rgba(21, 24, 22, 0.96), rgba(11, 13, 12, 0.96));
+  background: linear-gradient(180deg, rgba(21, 24, 22, 0.96), rgba(11, 13, 12, 0.96));
 }
 
 .project-panel::before {
   background:
     linear-gradient(transparent, rgba(255, 255, 255, 0.02)),
     linear-gradient(120deg, rgba(255, 255, 255, 0.05), transparent 36%);
+  z-index: 1;
 }
 
 .project-panel.wide {
