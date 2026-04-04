@@ -1,5 +1,5 @@
 export type Accent = 'lime' | 'clay' | 'ice';
-export type Filter = 'All' | 'Privacy' | 'Interface' | 'Tooling' | 'Infrastructure';
+export type Ownership = 'Built' | 'Contributed';
 export type CardLayout = 'wide' | 'tall' | 'standard';
 
 export type ProjectProfile = {
@@ -10,7 +10,7 @@ export type ProjectProfile = {
   impact: string;
   stack: string[];
   accent: Accent;
-  filter: Exclude<Filter, 'All'>;
+  ownership: Ownership;
   layout: CardLayout;
 };
 
@@ -38,9 +38,9 @@ export const marqueeItems = [
   'desktop products',
   'interaction design',
   'privacy tooling',
-  'mcp automation',
-  'minecraft systems',
+  'open-source contributions',
   'network utilities',
+  'windows tooling',
 ];
 
 export const heroSignals = [
@@ -58,8 +58,8 @@ export const heroSignals = [
   },
   {
     kicker: 'Automation',
-    title: 'AI control surfaces',
-    body: 'MCP servers, workflow tooling, and interfaces that make complex flows usable.',
+    title: 'Products and contributions',
+    body: 'Original tools, UI-heavy builds, and open-source work where I improve an existing product without breaking its voice.',
     accent: 'clay' as const,
   },
 ];
@@ -82,8 +82,8 @@ export const capabilityCards = [
   {
     title: 'Automation and protocol work',
     copy:
-      'MCP integrations, Discord tooling, and bridges between AI agents, products, and live systems.',
-    points: ['Workflow orchestration', 'AI-safe control surfaces', 'Operator-focused tooling'],
+      'Workflow tooling, MCP integrations, and operator surfaces for products that need more than a marketing layer.',
+    points: ['Workflow orchestration', 'Control surfaces', 'Operator-focused tooling'],
     accent: 'ice' as const,
   },
 ];
@@ -116,7 +116,7 @@ export const featuredOrder = [
   'DNS-Hop',
   'vp26',
   'apiark',
-  'MinecraftDeveloperMCP',
+  'NetSpeedTray',
   'tormap',
 ];
 
@@ -129,8 +129,8 @@ export const projectProfiles: Record<string, ProjectProfile> = {
     impact: 'Strong example of product framing, desktop UX, and privacy-first positioning.',
     stack: ['C#', 'desktop', 'privacy', 'networking'],
     accent: 'lime',
-    filter: 'Privacy',
-    layout: 'wide',
+    ownership: 'Built',
+    layout: 'standard',
   },
   'DNS-Hop': {
     name: 'DNS-Hop',
@@ -140,8 +140,8 @@ export const projectProfiles: Record<string, ProjectProfile> = {
     impact: 'Shows utility-first interface design with practical systems depth underneath.',
     stack: ['C#', 'Avalonia UI', 'Windows', 'DNS'],
     accent: 'ice',
-    filter: 'Tooling',
-    layout: 'tall',
+    ownership: 'Built',
+    layout: 'standard',
   },
   vp26: {
     name: 'vp26',
@@ -151,7 +151,7 @@ export const projectProfiles: Record<string, ProjectProfile> = {
     impact: 'Pure frontend craft with product polish, motion, and a more current information hierarchy.',
     stack: ['React', 'Tauri', 'FastAPI', 'TypeScript'],
     accent: 'clay',
-    filter: 'Interface',
+    ownership: 'Built',
     layout: 'standard',
   },
   apiark: {
@@ -162,18 +162,18 @@ export const projectProfiles: Record<string, ProjectProfile> = {
     impact: 'Combines product thinking, desktop packaging, and developer experience design.',
     stack: ['TypeScript', 'Tauri', 'DX', 'privacy'],
     accent: 'lime',
-    filter: 'Tooling',
-    layout: 'wide',
+    ownership: 'Built',
+    layout: 'standard',
   },
-  MinecraftDeveloperMCP: {
-    name: 'MinecraftDeveloperMCP',
-    label: 'Automation bridge',
-    domain: 'AI-driven game tooling',
-    summary: 'Connects AI agents to live Paper and Spigot servers through MCP.',
-    impact: 'Proof of protocol design, operator UX, and controlling live systems with guardrails.',
-    stack: ['Java', 'MCP', 'Spigot', 'automation'],
+  NetSpeedTray: {
+    name: 'NetSpeedTray',
+    label: 'Open-source contribution',
+    domain: 'Windows network monitor',
+    summary: 'Contributed to a lightweight taskbar network monitor that feels native instead of bolted on.',
+    impact: 'Shows I can step into an existing codebase, sharpen the UX, and ship improvements without fighting the product.',
+    stack: ['Windows', 'taskbar UI', 'monitoring', 'contribution'],
     accent: 'clay',
-    filter: 'Infrastructure',
+    ownership: 'Contributed',
     layout: 'standard',
   },
   tormap: {
@@ -184,8 +184,8 @@ export const projectProfiles: Record<string, ProjectProfile> = {
     impact: 'Useful example of information design, mapping, and interactive data presentation.',
     stack: ['data viz', 'mapping', 'search', 'privacy'],
     accent: 'ice',
-    filter: 'Privacy',
-    layout: 'tall',
+    ownership: 'Contributed',
+    layout: 'standard',
   },
 };
 
@@ -244,28 +244,6 @@ export const fallbackRepos: RepoSnapshot[] = [
     topics: [],
   },
   {
-    name: 'MinecraftDeveloperMCP',
-    description: 'Turn your Minecraft server into an AI-controllable powerhouse. Control Spigot/Paper servers directly from Cursor/Claude via Model Context Protocol (MCP).',
-    html_url: 'https://github.com/center2055/MinecraftDeveloperMCP',
-    homepage: '',
-    stargazers_count: 2,
-    forks_count: 0,
-    language: 'Java',
-    updated_at: '2026-03-02T22:03:22Z',
-    topics: ['ai', 'mcp', 'minecraft', 'server-control', 'spigot'],
-  },
-  {
-    name: 'tormap',
-    description: 'World map of Tor relays. Travel in time, filter and search.',
-    html_url: 'https://github.com/center2055/tormap',
-    homepage: 'https://tormap.org',
-    stargazers_count: 0,
-    forks_count: 0,
-    language: null,
-    updated_at: '2026-03-18T07:37:13Z',
-    topics: [],
-  },
-  {
     name: 'Launcher',
     description: 'Launcher for the Bedrock Cosmos local proxy',
     html_url: 'https://github.com/center2055/Launcher',
@@ -285,6 +263,28 @@ export const fallbackRepos: RepoSnapshot[] = [
     forks_count: 1,
     language: 'Python',
     updated_at: '2026-02-22T08:38:58Z',
+    topics: [],
+  },
+  {
+    name: 'NetSpeedTray',
+    description: 'A lightweight, open-source network monitor for Windows that displays live upload/download speeds directly on the taskbar with a native look and feel.',
+    html_url: 'https://github.com/center2055/NetSpeedTray',
+    homepage: 'https://github.com/erez-c137/NetSpeedTray',
+    stargazers_count: 0,
+    forks_count: 0,
+    language: null,
+    updated_at: '2026-03-03T08:08:15Z',
+    topics: [],
+  },
+  {
+    name: 'tormap',
+    description: 'World map of Tor relays. Travel in time, filter and search.',
+    html_url: 'https://github.com/center2055/tormap',
+    homepage: 'https://tormap.org',
+    stargazers_count: 0,
+    forks_count: 0,
+    language: null,
+    updated_at: '2026-03-18T07:37:13Z',
     topics: [],
   },
 ];

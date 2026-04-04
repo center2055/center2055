@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import type { MouseEvent } from 'react';
-import { useState } from 'react';
 import {
   capabilityCards,
   fallbackRepos,
@@ -13,7 +12,7 @@ import {
   projectProfiles,
   type Accent,
   type CardLayout,
-  type Filter,
+  type Ownership,
   type RepoSnapshot,
 } from './data/portfolio';
 import { useGithubRepos } from './hooks/useGithubRepos';
@@ -25,11 +24,9 @@ type ProjectCard = RepoSnapshot & {
   impact: string;
   stack: string[];
   accent: Accent;
-  filter: Exclude<Filter, 'All'>;
+  ownership: Ownership;
   layout: CardLayout;
 };
-
-const filters: Filter[] = ['All', 'Privacy', 'Interface', 'Tooling', 'Infrastructure'];
 
 function formatCompactNumber(value: number) {
   return new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(value);
@@ -77,9 +74,10 @@ function ProjectPanel({
       onMouseLeave={resetSpotlight}
     >
       <div className="project-topline">
+        <span>{project.ownership === 'Built' ? 'Built by me' : 'Contribution'}</span>
         <span>{project.label}</span>
-        <span>{project.domain}</span>
       </div>
+      <div className="project-domain">{project.domain}</div>
 
       <div className="project-head">
         <div>
@@ -126,7 +124,6 @@ function ProjectPanel({
 function App() {
   const { repos, loading, error } = useGithubRepos();
   const reducedMotion = useReducedMotion();
-  const [activeFilter, setActiveFilter] = useState<Filter>('All');
 
   const sourceRepos = repos.length > 0 ? repos : fallbackRepos;
   const repoMap = new Map(sourceRepos.map((repo) => [repo.name, repo]));
@@ -150,16 +147,13 @@ function App() {
         impact: profile.impact,
         stack: profile.stack,
         accent: profile.accent,
-        filter: profile.filter,
+        ownership: profile.ownership,
         layout: profile.layout,
       } satisfies ProjectCard;
     })
     .filter((project): project is ProjectCard => project !== null);
-
-  const filteredProjects =
-    activeFilter === 'All'
-      ? projects
-      : projects.filter((project) => project.filter === activeFilter);
+  const builtProjects = projects.filter((project) => project.ownership === 'Built');
+  const contributedProjects = projects.filter((project) => project.ownership === 'Contributed');
 
   const recentRepos = sourceRepos
     .filter((repo) => !featuredOrder.includes(repo.name))
@@ -200,12 +194,12 @@ function App() {
           >
             <span className="eyebrow">Interface craft with systems depth</span>
             <h1>
-              I build software that looks sharp, moves clean, and still holds up when the
+              I build software that looks sharp, moves clean, and stays useful when the
               product gets technical.
             </h1>
             <p className="hero-intro">
               Privacy tools, frontend-heavy apps, desktop utilities, automation surfaces,
-              and game infrastructure. The thread through all of it is product clarity.
+              and open-source contributions. The thread through all of it is product clarity.
             </p>
 
             <div className="hero-actions">
@@ -254,9 +248,30 @@ function App() {
             onMouseMove={updateSpotlight}
             onMouseLeave={resetSpotlight}
           >
+            <div className="signal-grid">
+              {heroSignals.map((signal, index) => (
+                <motion.article
+                  key={signal.title}
+                  className={`signal-card accent-${signal.accent}`}
+                  initial={reducedMotion ? false : { opacity: 0, y: 18 }}
+                  whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: reducedMotion ? 0 : index * 0.06,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <span>{signal.kicker}</span>
+                  <h3>{signal.title}</h3>
+                  <p>{signal.body}</p>
+                </motion.article>
+              ))}
+            </div>
+
             <div className="stage-core">
               <div className="stage-kicker">Current operating lanes</div>
-              <h2>Frontend direction, desktop execution, automation wiring.</h2>
+              <h2>Frontend direction, desktop execution, contribution-ready workflow.</h2>
               <p>
                 The UI is never treated as a skin. I build the interface and the system in
                 the same thought loop.
@@ -269,30 +284,6 @@ function App() {
                 <span>Python</span>
               </div>
             </div>
-
-            {heroSignals.map((signal, index) => (
-              <motion.article
-                key={signal.title}
-                className={`signal-card accent-${signal.accent} signal-${index + 1}`}
-                animate={
-                  reducedMotion
-                    ? undefined
-                    : {
-                        y: [0, index % 2 === 0 ? -12 : 10, 0],
-                        rotate: [0, index % 2 === 0 ? -2 : 2, 0],
-                      }
-                }
-                transition={{
-                  duration: reducedMotion ? 0 : 8 + index,
-                  repeat: reducedMotion ? 0 : Infinity,
-                  ease: 'easeInOut',
-                }}
-              >
-                <span>{signal.kicker}</span>
-                <h3>{signal.title}</h3>
-                <p>{signal.body}</p>
-              </motion.article>
-            ))}
           </motion.div>
         </section>
 
@@ -307,35 +298,67 @@ function App() {
         <section id="work" className="section-block">
           <div className="section-heading">
             <span className="eyebrow">Selected work</span>
-            <h2>Public projects that show range without losing taste.</h2>
+            <h2>Tools I built and projects I contributed to.</h2>
             <p>
-              A mix of privacy products, developer tools, network utilities, and UI-heavy
-              builds. Each one is a signal for how I think about interaction and product shape.
+              Clear separation matters here. Some projects are original products, others are
+              contributions to existing tools. Both should show how I handle UI, product shape,
+              and technical depth.
             </p>
           </div>
 
-          <div className="filter-row" role="tablist" aria-label="Project categories">
-            {filters.map((filter) => (
-              <button
-                key={filter}
-                type="button"
-                className={filter === activeFilter ? 'is-active' : ''}
-                onClick={() => setActiveFilter(filter)}
-              >
-                {filter}
-              </button>
-            ))}
+          <div className="ownership-summary">
+            <div>
+              <span>Built tools</span>
+              <strong>{builtProjects.length.toString().padStart(2, '0')}</strong>
+            </div>
+            <div>
+              <span>Contributions</span>
+              <strong>{contributedProjects.length.toString().padStart(2, '0')}</strong>
+            </div>
           </div>
 
-          <div className="project-grid">
-            {filteredProjects.map((project, index) => (
-              <ProjectPanel
-                key={project.name}
-                project={project}
-                index={index}
-                reducedMotion={Boolean(reducedMotion)}
-              />
-            ))}
+          <div className="work-groups">
+            <section className="project-section">
+              <div className="project-section-head">
+                <div>
+                  <span className="eyebrow">Built</span>
+                  <h3>Original tools</h3>
+                </div>
+                <p>Products where the direction, interaction model, and implementation are mine.</p>
+              </div>
+
+              <div className="project-grid">
+                {builtProjects.map((project, index) => (
+                  <ProjectPanel
+                    key={project.name}
+                    project={project}
+                    index={index}
+                    reducedMotion={Boolean(reducedMotion)}
+                  />
+                ))}
+              </div>
+            </section>
+
+            <section className="project-section">
+              <div className="project-section-head">
+                <div>
+                  <span className="eyebrow">Contributed</span>
+                  <h3>Existing products I improved</h3>
+                </div>
+                <p>Projects where I stepped into an existing codebase and improved the product without forcing a rewrite.</p>
+              </div>
+
+              <div className="project-grid">
+                {contributedProjects.map((project, index) => (
+                  <ProjectPanel
+                    key={project.name}
+                    project={project}
+                    index={index + builtProjects.length}
+                    reducedMotion={Boolean(reducedMotion)}
+                  />
+                ))}
+              </div>
+            </section>
           </div>
         </section>
 
