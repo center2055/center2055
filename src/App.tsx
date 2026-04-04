@@ -1,6 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import type { MouseEvent } from 'react';
 import {
+  builtProjectCatalog,
   capabilityCards,
   closingHighlights,
   fallbackRepos,
@@ -28,6 +29,8 @@ type ProjectCard = RepoSnapshot & {
   accent: Accent;
   ownership: Ownership;
   layout: CardLayout;
+  metricPrimary?: { value: string; label: string };
+  metricSecondary?: { value: string; label: string };
 };
 
 function formatCompactNumber(value: number) {
@@ -96,6 +99,14 @@ function ProjectPanel({
   reducedMotion: boolean;
 }) {
   const liveHref = project.homepage?.trim() ? project.homepage : '';
+  const metricPrimary = project.metricPrimary ?? {
+    value: formatCompactNumber(project.stargazers_count),
+    label: 'stars',
+  };
+  const metricSecondary = project.metricSecondary ?? {
+    value: project.language ?? 'mixed',
+    label: 'primary stack',
+  };
 
   return (
     <motion.article
@@ -122,12 +133,12 @@ function ProjectPanel({
         </div>
         <div className="project-stats">
           <div>
-            <strong>{formatCompactNumber(project.stargazers_count)}</strong>
-            <span>stars</span>
+            <strong>{metricPrimary.value}</strong>
+            <span>{metricPrimary.label}</span>
           </div>
           <div>
-            <strong>{project.language ?? 'mixed'}</strong>
-            <span>primary stack</span>
+            <strong>{metricSecondary.value}</strong>
+            <span>{metricSecondary.label}</span>
           </div>
         </div>
       </div>
@@ -180,7 +191,7 @@ function App() {
         return null;
       }
 
-      return {
+      const project: ProjectCard = {
         ...repo,
         description: repo.description ?? profile.summary,
         homepage: repo.homepage ?? '',
@@ -192,11 +203,19 @@ function App() {
         accent: profile.accent,
         ownership: profile.ownership,
         layout: profile.layout,
-      } satisfies ProjectCard;
+        metricPrimary: profile.metricPrimary,
+        metricSecondary: profile.metricSecondary,
+      };
+
+      return project;
     })
     .filter((project): project is ProjectCard => project !== null);
   const builtProjects = projects.filter((project) => project.ownership === 'Built');
   const contributedProjects = projects.filter((project) => project.ownership === 'Contributed');
+  const builtProjectsTotal = builtProjectCatalog.length;
+  const additionalBuiltProjects = builtProjectCatalog.filter(
+    (repoName) => !builtProjects.some((project) => project.name === repoName),
+  );
 
   const totalStars = sourceRepos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
   const activeLanguages = new Set(
@@ -252,7 +271,7 @@ function App() {
 
             <div className="hero-metrics" aria-label="Key portfolio metrics">
               <div>
-                <span>Featured builds</span>
+                <span>Selected projects</span>
                 <strong>{projects.length.toString().padStart(2, '0')}</strong>
               </div>
               <div>
@@ -348,8 +367,8 @@ function App() {
 
           <div className="ownership-summary">
             <div>
-              <span>Built projects</span>
-              <strong>{builtProjects.length.toString().padStart(2, '0')}</strong>
+              <span>Built repos overall</span>
+              <strong>{builtProjectsTotal.toString().padStart(2, '0')}</strong>
             </div>
             <div>
               <span>Merged contributions</span>
@@ -362,10 +381,16 @@ function App() {
               <div className="project-section-head">
                 <div>
                   <span className="eyebrow">Built</span>
-                  <h3>Projects I built</h3>
+                  <h3>Selected projects I built</h3>
                 </div>
                 <p>Products where the direction, interaction model, and implementation are mine.</p>
               </div>
+
+              <p className="project-section-note">
+                More built repos in the catalog:
+                {' '}
+                {additionalBuiltProjects.join(', ')}.
+              </p>
 
               <div className="project-grid">
                 {builtProjects.map((project, index) => (

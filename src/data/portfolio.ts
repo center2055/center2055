@@ -2,6 +2,10 @@ export type Accent = 'lime' | 'clay' | 'ice';
 export type Ownership = 'Built' | 'Contributed';
 export type CardLayout = 'wide' | 'tall' | 'standard';
 export type SocialPlatform = 'github' | 'discord' | 'kofi';
+export type ProjectMetric = {
+  value: string;
+  label: string;
+};
 
 export type ProjectProfile = {
   name: string;
@@ -13,6 +17,8 @@ export type ProjectProfile = {
   accent: Accent;
   ownership: Ownership;
   layout: CardLayout;
+  metricPrimary?: ProjectMetric;
+  metricSecondary?: ProjectMetric;
 };
 
 export type RepoSnapshot = {
@@ -130,6 +136,17 @@ export const closingHighlights = [
   },
 ];
 
+export const builtProjectCatalog = [
+  'OnionHop',
+  'DNS-Hop',
+  'vp26',
+  'CoinflipXD',
+  'MinecraftDeveloperMCP',
+  'AdvancedDiscordMCP',
+  'UserOverUUID',
+  'homebrew-onionhop',
+];
+
 export const featuredOrder = [
   'OnionHop',
   'DNS-Hop',
@@ -185,14 +202,22 @@ export const projectProfiles: Record<string, ProjectProfile> = {
   },
   NetSpeedTray: {
     name: 'NetSpeedTray',
-    label: 'Open-source contribution',
-    domain: 'Windows network monitor',
-    summary: 'A merged contribution to a lightweight taskbar network monitor that feels native instead of bolted on.',
-    impact: 'Shows I can step into an existing codebase, sharpen the UX, and land a real contribution without fighting the product.',
-    stack: ['Windows', 'taskbar UI', 'monitoring', 'merged PR'],
+    label: 'Merged PR #113',
+    domain: 'Per-app network activity',
+    summary: 'Merged PR #113 added an on-demand App Usage window for per-application network activity in NetSpeedTray.',
+    impact: 'The change introduced a dedicated worker thread, tray menu entrypoint, lifecycle cleanup, locale updates, and focused unit tests.',
+    stack: ['worker thread', 'tray menu', 'unit tests', 'i18n'],
     accent: 'clay',
     ownership: 'Contributed',
     layout: 'standard',
+    metricPrimary: {
+      value: '16 files',
+      label: 'files changed',
+    },
+    metricSecondary: {
+      value: '893+',
+      label: 'lines added',
+    },
   },
 };
 
