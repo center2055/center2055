@@ -29,6 +29,11 @@ html {
   scroll-behavior: smooth;
 }
 
+section[id],
+article[id] {
+  scroll-margin-top: 108px;
+}
+
 body {
   margin: 0;
   min-width: 320px;
@@ -966,3 +971,4 @@ button {
     transition: none !important;
   }
 }
+

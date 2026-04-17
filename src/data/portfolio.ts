@@ -19,6 +19,9 @@ export type ProjectProfile = {
   layout: CardLayout;
   metricPrimary?: ProjectMetric;
   metricSecondary?: ProjectMetric;
+  sourceHref?: string;
+  sourceLabel?: string;
+  launchHref?: string;
 };
 
 export type RepoSnapshot = {
@@ -153,6 +156,7 @@ export const featuredOrder = [
   'vp26',
   'AdvancedDiscordMCP',
   'NetSpeedTray',
+  'Launcher',
 ];
 
 export const projectProfiles: Record<string, ProjectProfile> = {
@@ -218,6 +222,31 @@ export const projectProfiles: Record<string, ProjectProfile> = {
       value: '893+',
       label: 'lines added',
     },
+    sourceHref: 'https://github.com/erez-c137/NetSpeedTray/pull/113',
+    sourceLabel: 'PR',
+    launchHref: 'https://github.com/erez-c137/NetSpeedTray',
+  },
+  Launcher: {
+    name: 'Bedrock Cosmos Launcher',
+    label: 'Merged PR #4',
+    domain: 'German localization + UI polish',
+    summary: 'Merged PR #4 centralized launcher strings, added a full German translation, and cleaned up the settings experience across languages.',
+    impact: 'The contribution added a localization audit test, improved the language dropdown behavior, and shipped with the maintainer\'s launch-mode simplification for the next update.',
+    stack: ['C#', 'localization', 'settings UI', 'audit test'],
+    accent: 'ice',
+    ownership: 'Contributed',
+    layout: 'standard',
+    metricPrimary: {
+      value: '21 files',
+      label: 'files changed',
+    },
+    metricSecondary: {
+      value: '2 commits',
+      label: 'merged',
+    },
+    sourceHref: 'https://github.com/Bedrock-Cosmos/Launcher/pull/4',
+    sourceLabel: 'PR',
+    launchHref: 'https://bedrock-cosmos.app/',
   },
 };
 
@@ -315,3 +344,4 @@ export const footerLinks = [
   { label: 'Discord', href: 'https://discord.gg/y3MVspPzKQ', icon: 'discord' as const },
   { label: 'Ko-fi', href: 'https://ko-fi.com/center2055', icon: 'kofi' as const },
 ];
+

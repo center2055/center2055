@@ -31,6 +31,9 @@ type ProjectCard = RepoSnapshot & {
   layout: CardLayout;
   metricPrimary?: { value: string; label: string };
   metricSecondary?: { value: string; label: string };
+  sourceHref?: string;
+  sourceLabel?: string;
+  launchHref?: string;
 };
 
 function formatCompactNumber(value: number) {
@@ -98,7 +101,13 @@ function ProjectPanel({
   index: number;
   reducedMotion: boolean;
 }) {
-  const liveHref = project.homepage?.trim() ? project.homepage : '';
+  const sourceHref = project.sourceHref?.trim() ? project.sourceHref : project.html_url;
+  const sourceLabel = project.sourceLabel?.trim() ? project.sourceLabel : 'Source';
+  const liveHref = project.launchHref?.trim()
+    ? project.launchHref
+    : project.homepage?.trim()
+      ? project.homepage
+      : '';
   const metricPrimary = project.metricPrimary ?? {
     value: formatCompactNumber(project.stargazers_count),
     label: 'stars',
@@ -153,8 +162,8 @@ function ProjectPanel({
 
       <div className="project-footer">
         <div className="project-links">
-          <a href={project.html_url} target="_blank" rel="noreferrer">
-            Source
+          <a href={sourceHref} target="_blank" rel="noreferrer">
+            {sourceLabel}
           </a>
           {liveHref ? (
             <a href={liveHref} target="_blank" rel="noreferrer">
@@ -175,10 +184,12 @@ function App() {
   const sourceRepos = repos.length > 0 ? repos : fallbackRepos;
   const repoMap = new Map(fallbackRepos.map((repo) => [repo.name, repo]));
   sourceRepos.forEach((repo) => {
+    const fallbackRepo = repoMap.get(repo.name);
     repoMap.set(repo.name, {
+      ...fallbackRepo,
       ...repo,
-      description: repo.description ?? '',
-      homepage: repo.homepage ?? '',
+      description: repo.description || fallbackRepo?.description || '',
+      homepage: repo.homepage || fallbackRepo?.homepage || '',
     });
   });
 
@@ -205,6 +216,9 @@ function App() {
         layout: profile.layout,
         metricPrimary: profile.metricPrimary,
         metricSecondary: profile.metricSecondary,
+        sourceHref: profile.sourceHref,
+        sourceLabel: profile.sourceLabel,
+        launchHref: profile.launchHref,
       };
 
       return project;
@@ -225,7 +239,7 @@ function App() {
   }).length;
 
   return (
-    <div className="app-shell">
+    <div className="app-shell" id="top">
       <header className="site-header">
         <a className="brand" href="#top">
           center2055
@@ -239,7 +253,7 @@ function App() {
         </nav>
       </header>
 
-      <main id="top">
+      <main>
         <section className="hero">
           <motion.div
             className="hero-copy"
@@ -526,3 +540,4 @@ function App() {
 }
 
 export default App;
+
