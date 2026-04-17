@@ -282,8 +282,8 @@ function App() {
 
             <div className="hero-metrics" aria-label="Key portfolio metrics">
               <div>
-                <span>Selected projects</span>
-                <strong>{projects.length.toString().padStart(2, '0')}</strong>
+                <span>Public projects</span>
+                <strong>{sourceRepos.length.toString().padStart(2, '0')}</strong>
               </div>
               <div>
                 <span>Total stars</span>
