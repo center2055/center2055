@@ -298,28 +298,6 @@ button {
   font-weight: 800;
 }
 
-.status-line {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 24px;
-  color: var(--muted);
-  font-size: 0.9rem;
-}
-
-.status-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 999px;
-  background: var(--accent-clay);
-  box-shadow: 0 0 0 8px rgba(230, 161, 106, 0.14);
-}
-
-.status-dot.live {
-  background: var(--accent-lime);
-  box-shadow: 0 0 0 8px rgba(197, 255, 107, 0.14);
-}
-
 .hero-stage {
   border-radius: calc(var(--radius-xl) + 6px);
   min-height: 0;

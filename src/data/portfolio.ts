@@ -157,6 +157,7 @@ export const featuredOrder = [
   'AdvancedDiscordMCP',
   'NetSpeedTray',
   'Launcher',
+  'TorMap',
 ];
 
 export const projectProfiles: Record<string, ProjectProfile> = {
@@ -248,6 +249,28 @@ export const projectProfiles: Record<string, ProjectProfile> = {
     sourceLabel: 'PR',
     launchHref: 'https://bedrock-cosmos.app/',
   },
+  TorMap: {
+    name: 'TorMap',
+    label: 'Credited in PR #465',
+    domain: 'Relay details and reverse DNS',
+    summary: 'My original PR #451 added confirmed family members, reverse-DNS details, backend caching, and a relay-map action; the maintainer later shipped it in PR #465 with refactoring.',
+    impact: 'The shipped follow-up explicitly closed #451, thanked me, and added Co-authored-by credit, so this is credited contribution work rather than a straight merge from my branch.',
+    stack: ['Kotlin', 'TypeScript', 'reverse DNS', 'relay UI'],
+    accent: 'clay',
+    ownership: 'Contributed',
+    layout: 'standard',
+    metricPrimary: {
+      value: '13 files',
+      label: 'original PR',
+    },
+    metricSecondary: {
+      value: 'PR #465',
+      label: 'credited in',
+    },
+    sourceHref: 'https://github.com/TorMap/tormap/pull/465',
+    sourceLabel: 'Follow-up PR',
+    launchHref: 'https://tormap.org',
+  },
 };
 
 export const fallbackRepos: RepoSnapshot[] = [
@@ -336,6 +359,17 @@ export const fallbackRepos: RepoSnapshot[] = [
     language: null,
     updated_at: '2026-03-03T08:08:15Z',
     topics: [],
+  },
+  {
+    name: 'TorMap',
+    description: 'World map of Tor relays with search, filters, confirmed family details, and reverse-DNS-backed relay inspection.',
+    html_url: 'https://github.com/center2055/tormap',
+    homepage: 'https://tormap.org',
+    stargazers_count: 28,
+    forks_count: 2,
+    language: 'TypeScript',
+    updated_at: '2026-05-11T00:59:26Z',
+    topics: ['tor', 'map', 'privacy', 'reverse-dns'],
   },
 ];
 

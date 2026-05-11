@@ -178,7 +178,7 @@ function ProjectPanel({
 }
 
 function App() {
-  const { repos, loading, error } = useGithubRepos();
+  const { repos } = useGithubRepos();
   const reducedMotion = useReducedMotion();
 
   const sourceRepos = repos.length > 0 ? repos : fallbackRepos;
@@ -298,15 +298,6 @@ function App() {
                 <strong>{recentlyUpdated}</strong>
               </div>
             </div>
-
-            <div className="status-line">
-              <span className={`status-dot ${error ? 'warning' : 'live'}`} />
-              <span>
-                {loading
-                  ? 'Syncing live GitHub project data'
-                  : error ?? 'Live GitHub data is feeding the portfolio cards'}
-              </span>
-            </div>
           </motion.div>
 
           <motion.div
@@ -382,7 +373,7 @@ function App() {
               <strong>{builtProjectsTotal.toString().padStart(2, '0')}</strong>
             </div>
             <div>
-              <span>Merged contributions</span>
+              <span>Open-source contributions</span>
               <strong>{contributedProjects.length.toString().padStart(2, '0')}</strong>
             </div>
           </div>
@@ -413,9 +404,9 @@ function App() {
               <div className="project-section-head">
                 <div>
                   <span className="eyebrow">Contributed</span>
-                  <h3>Merged contribution</h3>
+                  <h3>Contribution work</h3>
                 </div>
-                <p>A real contribution that landed in an existing codebase, not just a fork or an unmerged proposal.</p>
+                <p>Merged PRs and maintainer-adopted work where the final shipped result explicitly carries my contribution.</p>
               </div>
 
               <div className="project-grid">
