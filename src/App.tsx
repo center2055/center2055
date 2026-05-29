@@ -1,5 +1,5 @@
-import { motion, useReducedMotion } from 'framer-motion';
-import type { MouseEvent } from 'react';
+import { useEffect, useState } from 'react';
+import { ImprintPage, PrivacyPage } from './Legal';
 import {
   builtProjectCatalog,
   capabilityCards,
@@ -8,11 +8,9 @@ import {
   featuredOrder,
   footerLinks,
   heroSignals,
-  marqueeItems,
   navigation,
   processSteps,
   projectProfiles,
-  type Accent,
   type CardLayout,
   type Ownership,
   type RepoSnapshot,
@@ -26,7 +24,6 @@ type ProjectCard = RepoSnapshot & {
   summary: string;
   impact: string;
   stack: string[];
-  accent: Accent;
   ownership: Ownership;
   layout: CardLayout;
   metricPrimary?: { value: string; label: string };
@@ -35,6 +32,30 @@ type ProjectCard = RepoSnapshot & {
   sourceLabel?: string;
   launchHref?: string;
 };
+
+type Route = 'home' | 'privacy' | 'imprint';
+
+function resolveRoute(): Route {
+  const hash = window.location.hash;
+  if (hash === '#/privacy') return 'privacy';
+  if (hash === '#/imprint') return 'imprint';
+  return 'home';
+}
+
+function useHashRoute(): Route {
+  const [route, setRoute] = useState<Route>(resolveRoute);
+  useEffect(() => {
+    const onHash = () => {
+      setRoute(resolveRoute());
+      if (window.location.hash.startsWith('#/')) {
+        window.scrollTo({ top: 0 });
+      }
+    };
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+  return route;
+}
 
 function formatCompactNumber(value: number) {
   return new Intl.NumberFormat('en', { notation: 'compact', maximumFractionDigits: 1 }).format(value);
@@ -46,17 +67,6 @@ function formatDate(dateValue: string) {
     day: 'numeric',
     year: 'numeric',
   }).format(new Date(dateValue));
-}
-
-function updateSpotlight(event: MouseEvent<HTMLElement>) {
-  const rect = event.currentTarget.getBoundingClientRect();
-  event.currentTarget.style.setProperty('--spot-x', `${event.clientX - rect.left}px`);
-  event.currentTarget.style.setProperty('--spot-y', `${event.clientY - rect.top}px`);
-  event.currentTarget.style.setProperty('--spot-opacity', '1');
-}
-
-function resetSpotlight(event: MouseEvent<HTMLElement>) {
-  event.currentTarget.style.setProperty('--spot-opacity', '0');
 }
 
 function SocialIcon({ platform }: { platform: SocialPlatform }) {
@@ -92,15 +102,7 @@ function SocialIcon({ platform }: { platform: SocialPlatform }) {
   );
 }
 
-function ProjectPanel({
-  project,
-  index,
-  reducedMotion,
-}: {
-  project: ProjectCard;
-  index: number;
-  reducedMotion: boolean;
-}) {
+function ProjectPanel({ project }: { project: ProjectCard }) {
   const sourceHref = project.sourceHref?.trim() ? project.sourceHref : project.html_url;
   const sourceLabel = project.sourceLabel?.trim() ? project.sourceLabel : 'Source';
   const liveHref = project.launchHref?.trim()
@@ -118,17 +120,7 @@ function ProjectPanel({
   };
 
   return (
-    <motion.article
-      layout
-      className={`project-panel ${project.layout} accent-${project.accent}`}
-      initial={reducedMotion ? false : { opacity: 0, y: 36 }}
-      whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.55, delay: reducedMotion ? 0 : index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      onMouseMove={updateSpotlight}
-      onMouseLeave={resetSpotlight}
-    >
-      <div className="spotlight-layer" aria-hidden="true" />
+    <article className="project-panel">
       <div className="project-topline">
         <span>{project.ownership === 'Built' ? 'Built by me' : 'Contribution'}</span>
         <span>{project.label}</span>
@@ -173,13 +165,13 @@ function ProjectPanel({
         </div>
         <span className="project-updated">Updated {formatDate(project.updated_at)}</span>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
 function App() {
   const { repos } = useGithubRepos();
-  const reducedMotion = useReducedMotion();
+  const route = useHashRoute();
 
   const sourceRepos = repos.length > 0 ? repos : fallbackRepos;
   const repoMap = new Map(fallbackRepos.map((repo) => [repo.name, repo]));
@@ -211,7 +203,6 @@ function App() {
         summary: profile.summary,
         impact: profile.impact,
         stack: profile.stack,
-        accent: profile.accent,
         ownership: profile.ownership,
         layout: profile.layout,
         metricPrimary: profile.metricPrimary,
@@ -253,14 +244,12 @@ function App() {
         </nav>
       </header>
 
+      {route !== 'home' ? (
+        <main>{route === 'privacy' ? <PrivacyPage /> : <ImprintPage />}</main>
+      ) : (
       <main>
         <section className="hero">
-          <motion.div
-            className="hero-copy"
-            initial={reducedMotion ? false : { opacity: 0, y: 24 }}
-            animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          >
+          <div className="hero-copy">
             <span className="eyebrow">Interface craft with systems depth</span>
             <h1>
               I build software that looks sharp, moves clean, and stays useful when the
@@ -298,35 +287,16 @@ function App() {
                 <strong>{recentlyUpdated}</strong>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="hero-stage"
-            initial={reducedMotion ? false : { opacity: 0, y: 24 }}
-            animate={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: reducedMotion ? 0 : 0.1, ease: [0.22, 1, 0.36, 1] }}
-            onMouseMove={updateSpotlight}
-            onMouseLeave={resetSpotlight}
-          >
-            <div className="spotlight-layer" aria-hidden="true" />
+          <aside className="hero-stage">
             <div className="signal-grid">
-              {heroSignals.map((signal, index) => (
-                <motion.article
-                  key={signal.title}
-                  className={`signal-card accent-${signal.accent}`}
-                  initial={reducedMotion ? false : { opacity: 0, y: 18 }}
-                  whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: reducedMotion ? 0 : index * 0.06,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                >
+              {heroSignals.map((signal) => (
+                <article key={signal.title} className="signal-card">
                   <span>{signal.kicker}</span>
                   <h3>{signal.title}</h3>
                   <p>{signal.body}</p>
-                </motion.article>
+                </article>
               ))}
             </div>
 
@@ -345,16 +315,8 @@ function App() {
                 <span>Python</span>
               </div>
             </div>
-          </motion.div>
+          </aside>
         </section>
-
-        <div className="marquee" aria-hidden="true">
-          <div className="marquee-track">
-            {[...marqueeItems, ...marqueeItems].map((item, index) => (
-              <span key={`${item}-${index}`}>{item}</span>
-            ))}
-          </div>
-        </div>
 
         <section id="work" className="section-block">
           <div className="section-heading">
@@ -385,17 +347,11 @@ function App() {
                   <span className="eyebrow">Built</span>
                   <h3>Selected projects I built</h3>
                 </div>
-                <p>Products where the direction, interaction model, and implementation are mine.</p>
               </div>
 
               <div className="project-grid">
-                {builtProjects.map((project, index) => (
-                  <ProjectPanel
-                    key={project.name}
-                    project={project}
-                    index={index}
-                    reducedMotion={Boolean(reducedMotion)}
-                  />
+                {builtProjects.map((project) => (
+                  <ProjectPanel key={project.name} project={project} />
                 ))}
               </div>
             </section>
@@ -406,17 +362,11 @@ function App() {
                   <span className="eyebrow">Contributed</span>
                   <h3>Contribution work</h3>
                 </div>
-                <p>Merged PRs and maintainer-adopted work where the final shipped result explicitly carries my contribution.</p>
               </div>
 
               <div className="project-grid">
-                {contributedProjects.map((project, index) => (
-                  <ProjectPanel
-                    key={project.name}
-                    project={project}
-                    index={index + builtProjects.length}
-                    reducedMotion={Boolean(reducedMotion)}
-                  />
+                {contributedProjects.map((project) => (
+                  <ProjectPanel key={project.name} project={project} />
                 ))}
               </div>
             </section>
@@ -434,15 +384,8 @@ function App() {
           </div>
 
           <div className="capability-grid">
-            {capabilityCards.map((card, index) => (
-              <motion.article
-                key={card.title}
-                className={`capability-card accent-${card.accent}`}
-                initial={reducedMotion ? false : { opacity: 0, y: 24 }}
-                whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.55, delay: reducedMotion ? 0 : index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              >
+            {capabilityCards.map((card) => (
+              <article key={card.title} className="capability-card">
                 <h3>{card.title}</h3>
                 <p>{card.copy}</p>
                 <ul>
@@ -450,7 +393,7 @@ function App() {
                     <li key={point}>{point}</li>
                   ))}
                 </ul>
-              </motion.article>
+              </article>
             ))}
           </div>
         </section>
@@ -466,19 +409,12 @@ function App() {
           </div>
 
           <div className="process-track">
-            {processSteps.map((step, index) => (
-              <motion.article
-                key={step.index}
-                className="process-card"
-                initial={reducedMotion ? false : { opacity: 0, y: 30 }}
-                whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.35 }}
-                transition={{ duration: 0.55, delay: reducedMotion ? 0 : index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              >
+            {processSteps.map((step) => (
+              <article key={step.index} className="process-card">
                 <span>{step.index}</span>
                 <h3>{step.title}</h3>
                 <p>{step.body}</p>
-              </motion.article>
+              </article>
             ))}
           </div>
         </section>
@@ -497,7 +433,7 @@ function App() {
 
             <div className="highlight-list">
               {closingHighlights.map((item) => (
-                <article key={item.title} className={`highlight-card accent-${item.accent}`}>
+                <article key={item.title} className="highlight-card">
                   <strong>{item.title}</strong>
                   <p>{item.body}</p>
                 </article>
@@ -526,9 +462,23 @@ function App() {
           </article>
         </section>
       </main>
+      )}
+
+      <footer className="site-footer">
+        <span>© {new Date().getFullYear()} center2055</span>
+        <nav className="footer-links" aria-label="Footer">
+          <a href="#/privacy">Privacy</a>
+          <a href="#/imprint">Imprint</a>
+          <a href="https://github.com/center2055" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+          <a href="https://ko-fi.com/center2055" target="_blank" rel="noreferrer">
+            Ko-fi
+          </a>
+        </nav>
+      </footer>
     </div>
   );
 }
 
 export default App;
-
