@@ -373,8 +373,8 @@ function App() {
           </div>
         </section>
 
-        <section id="capabilities" className="section-block split-layout">
-          <div className="section-heading narrow">
+        <section id="capabilities" className="section-block">
+          <div className="section-heading">
             <span className="eyebrow">Capabilities</span>
             <h2>I am strongest where design and systems collide.</h2>
             <p>

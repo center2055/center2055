@@ -514,16 +514,11 @@ h3 {
 }
 
 /* Capabilities */
-.split-layout {
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 40px;
-  align-items: start;
-}
-
 .capability-grid {
   display: grid;
-  gap: 14px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 36px;
 }
 
 .capability-card {
@@ -789,12 +784,12 @@ h3 {
 /* Responsive */
 @media (max-width: 980px) {
   .hero,
-  .split-layout,
   .closing-grid {
     grid-template-columns: 1fr;
     gap: 32px;
   }
 
+  .capability-grid,
   .process-track {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -827,6 +822,7 @@ h3 {
 
 @media (max-width: 520px) {
   .signal-grid,
+  .capability-grid,
   .process-track {
     grid-template-columns: 1fr;
   }
